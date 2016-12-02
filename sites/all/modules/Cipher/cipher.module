@@ -1,0 +1,30 @@
+<?php
+
+function cipher_menu() {
+  $items['cipher'] = array(
+    'title' => 'Sensei Cyber Cipher',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cipher_form'),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+}
+
+function cipher_form() {
+  $form['phrase'] = array(
+    '#title' => 'Input A Phrase:',
+    '#type' => 'textfield',
+    '#description' => t('Enter a phrase you wish to cipher and encrypt'),
+  );
+  $form['shift_value'] = array(
+    '#title' => 'Shift Value',
+    '#type' => 'textfield',
+    '#description' => t('Enter the number of letters you would like to shift/cipher encrypt your phrase'),
+  );
+  $form['direction'] = array(
+    '#title' => 'Direction of Shift',
+    '#type' => 'textfield',
+    '#description' => t('Enter either "right" or "left" to tell the cipher which way to encrypt your phrase'),
+  )
+}
