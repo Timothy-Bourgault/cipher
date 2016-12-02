@@ -1,35 +1,57 @@
 <?php
 
 function cipher_menu() {
-  $items['cipher'] = array(
-    'title' => 'Sensei Cyber Cipher',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('cipher_form'),
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-  );
-  return $items;
+    $items['cipher'] = array(
+        'title' => 'Sensei Cyber Cipher',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('cipher_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['cipher_result'] = array(
+        'title' => 'Your Ciphered Phrase:',
+        'page callback' => 'cipher_result',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
 }
 
 function cipher_form() {
-  $form['phrase'] = array(
-    '#title' => 'Input A Phrase:',
-    '#type' => 'textfield',
-    '#description' => t('Enter a phrase you wish to cipher and encrypt'),
-  );
-  $form['shift_value'] = array(
-    '#title' => 'Shift Value:',
-    '#type' => 'textfield',
-    '#description' => t('Enter the number of letters you would like to shift/cipher encrypt your phrase'),
-  );
-  $form['direction'] = array(
-    '#title' => 'Direction of Shift:',
-    '#type' => 'textfield',
-    '#description' => t('Enter either "right" or "left" to tell the cipher which way to encrypt your phrase'),
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => 'Cipher Dat Shiz!',
-  );
-  return $form;
+    $form['phrase'] = array(
+        '#title' => 'Input A Phrase:',
+        '#type' => 'textfield',
+        '#description' => t('Enter a phrase you wish to cipher and encrypt'),
+        '#required' => TRUE,
+    );
+    $form['shift_value'] = array(
+        '#title' => 'Shift Value:',
+        '#type' => 'textfield',
+        '#description' => t('Enter the number you would like to shift/cipher encrypt each letter in your phrase'),
+        '#element_validate' => array('element_validate_number', 'element_validate_integer_positive'),
+        '#required' => TRUE,
+    );
+    $form['direction'] = array(
+        '#title' => 'Direction of Shift:',
+        '#type' => 'textfield',
+        '#description' => t('Enter either "right" or "left" to tell the cipher which way to encrypt your phrase'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Cipher Dat Shiz!',
+    );
+    return $form;
+}
+
+function cipher_form_submit($form, &$form_state) {
+  $input_phrase = strtolower($form_state['values']['phrase']);
+  $input_array = explode(" ", $input_phrase);
+  $punctuation = array("+",",",".","-","'","\"","&","!","?",":",";","#","~","=","/","$","£","^","(",")","_","<",">");
+  $alphabet = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+
+  foreach($input_array as $index => $word)
+
+  $output_array = array();
+
 }
