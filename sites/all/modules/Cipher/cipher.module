@@ -67,12 +67,32 @@ function element_validate_range($element) {
 }
 
 function cipher_form_submit($form, &$form_state) {
-    $input_phrase = strtolower($form_state['values']['phrase']);
-    $input_array = explode(" ", $input_phrase);
-    $punctuation = array("+",",",".","-","'","\"","&","!","?",":",";","#","~","=","/","$","£","^","(",")","_","<",">");
-    $alphabet = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
-
-    foreach($input_array as $index => $word)
+    $input_phrase = str_split(strtolower($form_state['values']['phrase']));
+    $shift_value = intval($form_state['values']['shift_value']);
+    $direction = strtolower($form_state['values']['direction']);
+    $alphabet = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+    $encrypted_phrase = array();
+    foreach($input_phrase as $word) {
+        $characters = str_split($word);
+        $new_word = "";
+        $mew_array = array();
+        foreach($characters as $character){
+            $place = array_search($character, $alphabet);
+            if($direction === 'left'){
+                $moved_place = $place - $shift_value;
+                while ($moved_place < 0) {
+                    $moved_place = 26 - abs($moved_place);
+                }
+            } elseif($direction === 'right'){
+                $moved_place = $place + $shift_value;
+                while ($new_place > 25) {
+                    $moved_place = $moved_place - 26;
+                }
+            }
+            
+        }
+        }
+    }
 
     $output_array = array();
 
