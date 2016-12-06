@@ -22,6 +22,7 @@ function cipher_form() {
         '#title' => 'Input Phrase:',
         '#type' => 'textfield',
         '#description' => t('Enter a phrase you wish to cipher and encrypt'),
+        '#element_validate' => array('input_phrase_validate'),
         '#required' => TRUE,
     );
     $form['shift_value'] = array(
@@ -45,15 +46,23 @@ function cipher_form() {
     return $form;
 }
 
+function input_phrase_validate($element) {
+    $input_phrase = $element['#value'];
+    $valid_characters = preg_match_all('/[a-zA-Z ,.!?:;\'\"]/', $input_phrase);
+    if ($valid_characters != strlen($input_phrase)) {
+        form_error($element, t('Warning: You have used improper punctuation in your input phrase!'));
+    }
+}
+
 function element_validate_direction($element) {
     if ($element['#value'] != 'left' && $element['#value'] != 'right') {
-        form_error($element, t('Warning: You may only enter "left" or "right" for this input field!'));
+        form_error($element, t('Warning: You may only enter "left" or "right" for the direction shift input field!'));
     }
 }
 
 function element_validate_range($element) {
     if ($element['#value'] < 1 || $element['#value'] > 25) {
-        form_error($element, t('Warning: You must enter a number within the valid range specified!!'));
+        form_error($element, t('Warning: You must enter a shift value number within the valid range specified!'));
     }
 }
 
