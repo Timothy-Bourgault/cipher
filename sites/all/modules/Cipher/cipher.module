@@ -19,7 +19,7 @@ function cipher_menu() {
 
 function cipher_form() {
     $form['phrase'] = array(
-        '#title' => 'Input A Phrase:',
+        '#title' => 'Input Phrase:',
         '#type' => 'textfield',
         '#description' => t('Enter a phrase you wish to cipher and encrypt'),
         '#required' => TRUE,
@@ -27,8 +27,8 @@ function cipher_form() {
     $form['shift_value'] = array(
         '#title' => 'Shift Value:',
         '#type' => 'textfield',
-        '#description' => t('Enter the number you would like to shift/cipher encrypt each letter in your phrase'),
-        '#element_validate' => array('element_validate_number', 'element_validate_integer_positive'),
+        '#description' => t('Enter a number between 1 and 25 that you would like to shift/cipher encrypt each letter in your phrase'),
+        '#element_validate' => array('element_validate_number', 'element_validate_integer_positive', 'element_validate_range'),
         '#required' => TRUE,
     );
     $form['direction'] = array(
@@ -42,6 +42,12 @@ function cipher_form() {
         '#value' => 'Cipher Dat Shiz!',
     );
     return $form;
+}
+
+function element_validate_range($element) {
+    if ($element['#value'] < 1 || $element['#value'] > 25) {
+        form_error($element, t('Warning: You must enter a number within the valid range specified!!'));
+    }
 }
 
 function cipher_form_submit($form, &$form_state) {
