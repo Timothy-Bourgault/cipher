@@ -75,7 +75,7 @@ function cipher_form_submit($form, &$form_state) {
     foreach($input_phrase as $word) {
         $characters = str_split($word);
         $new_word = "";
-        $mew_array = array();
+        $new_array = array();
         foreach($characters as $character){
             $place = array_search($character, $alphabet);
             if($direction === 'left'){
@@ -92,7 +92,6 @@ function cipher_form_submit($form, &$form_state) {
             if(preg_match("/[a-z]/", $character)){
                 array_push
             }
-        }
         }
     }
 
