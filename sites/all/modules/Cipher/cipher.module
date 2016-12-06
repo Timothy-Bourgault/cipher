@@ -89,7 +89,9 @@ function cipher_form_submit($form, &$form_state) {
                     $moved_place = $moved_place - 26;
                 }
             }
-            
+            if(preg_match("/[a-z]/", $character)){
+                array_push
+            }
         }
         }
     }
