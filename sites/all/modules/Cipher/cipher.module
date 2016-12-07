@@ -96,10 +96,7 @@ function cipher_form_submit($form, &$form_state) {
             }
             $new_word = implode('', $new_array);
         }
-<<<<<<< HEAD
         array_push($encrypted_phrase, $new_word);
-=======
->>>>>>> 5d9d339f59c62f3e8bfb754e91c64d3d1185b4d3
     }
     $encryption_result = implode(' ', $encrypted_phrase);
     $_SESSION['encryption_result'] = $encryption_result;
