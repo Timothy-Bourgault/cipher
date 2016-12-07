@@ -75,27 +75,35 @@ function cipher_form_submit($form, &$form_state) {
     foreach($input_phrase as $word) {
         $characters = str_split($word);
         $new_word = "";
-        $mew_array = array();
+        $new_array = array();
         foreach($characters as $character){
             $place = array_search($character, $alphabet);
-            if($direction === 'left'){
-                $moved_place = $place - $shift_value;
-                while ($moved_place < 0) {
-                    $moved_place = 26 - abs($moved_place);
-                }
-            } elseif($direction === 'right'){
+            if($direction === 'right'){
                 $moved_place = $place + $shift_value;
-                while ($new_place > 25) {
+                while ($moved_place > 25) {
                     $moved_place = $moved_place - 26;
+                }
+            } elseif($direction === 'left'){
+                $moved_place = $place - $shift_value;
+                while($moved_place < 0) {
+                  $moved_place = 26 - abs($moved_place);
                 }
             }
             if(preg_match("/[a-z]/", $character)){
-                array_push
+                array_push($new_array, $alphabet[$moved_place]);
+            } else {
+                array_push($new_array, $character);
             }
+            $new_word = implode('', $new_array);
         }
-        }
+        array_push($encrypted_phrase, $new_word);
     }
+    $encryption_result = implode(' ', $encrypted_phrase);
+    $_SESSION['encryption_result'] = $encryption_result;
+    $form_state['redirect'] = 'cipher_result';
+}
 
-    $output_array = array();
-
+function cipher_result() {
+    $cipher = $_SESSION['encryption_result'];
+    return "<h1>'$cipher'</h1>";
 }
