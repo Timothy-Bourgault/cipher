@@ -105,5 +105,7 @@ function cipher_form_submit($form, &$form_state) {
 
 function cipher_result() {
     $cipher = $_SESSION['encryption_result'];
-    return "<h1>'$cipher'</h1>";
+    $display_result = '<pre>'. $cipher . '</pre>';
+    echo "<pre>" . var_dump($cipher) . "</pre>";
+    return '<h4>' . $display_result . '</h4>';
 }
